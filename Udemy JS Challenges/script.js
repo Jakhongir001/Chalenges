@@ -166,3 +166,46 @@ const display = poll.displayResults;
 // display.call(poll, testData1.join(' '));
 display.apply(poll, testData2);
 display.call(poll, testData2);
+
+// ---------------------A closer look at functions section-------------------------
+
+/*
+Coding Challenge #2
+This is more of a thinking challenge than a coding challenge �
+Your tasks:
+1. Take the IIFE below and at the end of the function, attach an event listener that
+changes the color of the selected h1 element ('header') to blue, each time
+the body element is clicked. Do not select the h1 element again!
+2. And now explain to yourself (or someone around you) why this worked! Take all
+the time you need. Think about when exactly the callback function is executed,
+and what that means for the variables involved in this example.
+(function () {
+const header = document.querySelector('h1');
+header.style.color = 'red';
+})();
+GOOD LUCK 
+*/
+
+(function () {
+  const header = document.querySelector("h1");
+  header.style.color = "red";
+  function colorChanger() {
+    document.body.addEventListener("click", function () {
+      header.style.color = "blue";
+    });
+  }
+  colorChanger();
+})();
+
+// his solution
+// document.querySelector('body').addEventListener('click', function () {
+// header.style.color = 'blue';
+// });
+
+/* 
+This worked even though the outer function has already returned and header is in outer scope
+
+because a closure makes sure that a function doen't lose connection  to variables that existed at the funtion's birthplace
+
+2. because a function keeps a reference to its outer scope, which preserves the scope chain throughout time
+ */
