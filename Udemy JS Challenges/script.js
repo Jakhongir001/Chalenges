@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // Challenge #4 devoted to Modern operators and Strings
 /*
@@ -126,17 +126,17 @@ Test data for bonus:
 Hints: Use many of the tools you learned about in this and the last section �
 GOOD LUCK 
 */
-
+/*
 const poll = {
-  question: "What is your favourite programming language?",
-  options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
+  question: 'What is your favourite programming language?',
+  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
   // This generates [0, 0, 0, 0]. More in the next section!
   answers: new Array(4).fill(0),
 
   registerNewAnswer() {
     const inputValue = Number(
       prompt(
-        `${this.question}\n${this.options.join("\n")}\n (Write option number)`
+        `${this.question}\n${this.options.join('\n')}\n (Write option number)`
       )
     );
 
@@ -147,18 +147,18 @@ const poll = {
       alert(`Please insert a valuable number`);
     }
 
-    this.displayResults(this.answers.join(" "));
+    this.displayResults(this.answers.join(' '));
   },
 
   displayResults(type) {
-    typeof type === "string"
+    typeof type === 'string'
       ? alert(`Poll results are ${type}`)
       : console.log(type);
     // for (let i of type)
   },
 };
 const pollOnly = poll.registerNewAnswer.bind(poll);
-document.querySelector(".poll").addEventListener("click", pollOnly);
+document.querySelector('.poll').addEventListener('click', pollOnly);
 
 const testData1 = [5, 2, 3];
 const testData2 = [1, 5, 3, 9, 6, 1];
@@ -167,6 +167,7 @@ const display = poll.displayResults;
 display.apply(poll, testData2);
 display.call(poll, testData2);
 
+*/
 // ---------------------A closer look at functions section-------------------------
 
 /*
@@ -187,11 +188,11 @@ GOOD LUCK
 */
 
 (function () {
-  const header = document.querySelector("h1");
-  header.style.color = "red";
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
   function colorChanger() {
-    document.body.addEventListener("click", function () {
-      header.style.color = "blue";
+    document.body.addEventListener('click', function () {
+      header.style.color = 'blue';
     });
   }
   colorChanger();
@@ -209,3 +210,56 @@ because a closure makes sure that a function doen't lose connection  to variable
 
 2. because a function keeps a reference to its outer scope, which preserves the scope chain throughout time
  */
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//Working with Arrays ------------Challenge #1
+
+/*
+Coding Challenge #1
+Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners
+about their dog's age, and stored the data into an array (one array for each). For
+now, they are just interested in knowing whether a dog is an adult or a puppy.
+A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years
+old.
+Your tasks:
+Create a function 'checkDogs', which accepts 2 arrays of dog's ages
+('dogsJulia' and 'dogsKate'), and does the following things:
+1. Julia found out that the owners of the first and the last two dogs actually have
+cats, not dogs! So create a shallow copy of Julia's array, and remove the cat
+ages from that copied array (because it's a bad practice to mutate function
+parameters)
+2. Create an array with both Julia's (corrected) and Kate's data
+3. For each remaining dog, log to the console whether it's an adult ("Dog number 1
+is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy
+�
+")
+4. Run the function for both test datasets
+Test data:
+§ Data 1: Julia's data [3, 5, 2, 12, 7], Kate's data [4, 1, 15, 8, 3]
+§ Data 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
+Hints: Use tools from all lectures in this section so far �
+GOOD LUCK 
+*/
+const juliaDogs = [3, 5, 2, 12, 7];
+const kateDogs = [4, 1, 15, 8, 3];
+
+const checkDogs = function (dogsJulia, dogsKate) {
+  const updatedJuliaDogs = dogsJulia.slice();
+  updatedJuliaDogs.splice(0, 1);
+  updatedJuliaDogs.splice(-2);
+  const corrected = dogsKate.concat(updatedJuliaDogs);
+  console.log(corrected);
+  const whetherAdult = currentAge => (currentAge >= 3 ? 'an adult' : 'a puppy');
+  corrected.forEach(function (age, i) {
+    console.log(
+      `Dog number ${i + 1} is ${whetherAdult(age)}, and is ${age} year${
+        (age > 1 && 's') || ''
+      } old"`
+    );
+  });
+};
+
+// checkDogs(juliaDogs, kateDogs);
+checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+
+// I didn't use still a puppy as I wanted to challenge myself little more to use some more of the methods that I learned
