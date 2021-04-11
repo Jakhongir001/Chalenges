@@ -389,11 +389,11 @@ const dogSarah = dogs.find(
   owner => owner.owners.find(own => 'Sarah') === 'Sarah'
 );
 if (dogSarah.curFood > dogSarah.recommendedFood) {
-  console.log("Sarah's dog is eating too much");
+  // console.log("Sarah's dog is eating too much");
 } else if (dogSarah.curFood < recommendedFood) {
-  console.log("Sarah's dog is eating too less");
+  // console.log("Sarah's dog is eating too less");
 } else {
-  console.log("Sarah's dog is eating cool");
+  // console.log("Sarah's dog is eating cool");
 }
 
 // #3
@@ -407,12 +407,12 @@ const ownersEatTooLittle = dogs
   .flatMap(dog => dog.owners);
 
 // #4
-console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much`);
-console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too litle`);
+// console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much`);
+// console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too litle`);
 
 // #5
 
-console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
+// console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
 
 // #6
 console.log(
@@ -432,13 +432,13 @@ const okayEating = dogs
   )
   .flatMap(own => own.owners);
 
-console.log(okayEating);
+// console.log(okayEating);
 
 // #8
 const sortedCopy = dogs
   .slice()
   .sort((a, b) => a.recommendedFood - b.recommendedFood);
-console.log(sortedCopy);
+// console.log(sortedCopy);
 
 //////////////////////////////////////////////////////////////////////////////
 //  #Object Oriented Programming (OOP)
@@ -533,11 +533,74 @@ class CarCl {
 }
 
 const ford = new CarCl('Ford', 120);
-ford.accelerate();
-ford.accelerate();
-ford.accelerate();
-ford.brake();
-ford.brake();
+// ford.accelerate();
+// ford.accelerate();
+// ford.accelerate();
+// ford.brake();
+// ford.brake();
 
 ford.speedUS = 50;
-console.log(ford);
+// console.log(ford);
+
+const Car = function (make, speed) {
+  this.speed = speed;
+  this.make = make;
+};
+
+// #2
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.make}'s current speed is ${this.speed} km/h`);
+};
+
+// #3
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make}'s current speed is ${this.speed} km/h`);
+};
+
+/*
+  Your tasks:
+  1. Use a constructor function to implement an Electric Car (called 'EV') as a child
+  "class" of 'Car'. Besides a make and current speed, the 'EV' also has the
+  current battery charge in % ('charge' property)
+  2. Implement a 'chargeBattery' method which takes an argument
+  'chargeTo' and sets the battery charge to 'chargeTo'
+  3. Implement an 'accelerate' method that will increase the car's speed by 20,
+  and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140
+  km/h, with a charge of 22%'
+  4. Create an electric car object and experiment with calling 'accelerate',
+  'brake' and 'chargeBattery' (charge to 90%). Notice what happens when
+  you 'accelerate'! Hint: Review the definiton of polymorphism �
+  Test data:
+  § Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%
+  GOOD LUCK 🍯
+  */
+
+const EV = function (make, speed, charge) {
+  Car.call(this, make, speed);
+  this.charge = charge;
+};
+
+EV.prototype = Object.create(Car.prototype);
+EV.prototype.constructor = EV;
+EV.prototype.chargeBattery = function (chargeTo) {
+  this.charge = chargeTo;
+};
+
+EV.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge--;
+  console.log(
+    `${this.make} is going at ${this.speed} km/h, with a charge of ${this.charge}%`
+  );
+};
+
+const tesla = new EV('Tesla', 120, 23);
+console.log(tesla);
+console.log(tesla.charge);
+tesla.accelerate();
+tesla.brake();
+tesla.chargeBattery(90);
+tesla.accelerate();
+tesla.accelerate();
