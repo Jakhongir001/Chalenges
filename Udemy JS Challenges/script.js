@@ -604,3 +604,47 @@ tesla.brake();
 tesla.chargeBattery(90);
 tesla.accelerate();
 tesla.accelerate();
+
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(2021 - this.birthYear);
+  }
+
+  set fullName(name) {
+    this._fullName = name.includes(' ')
+      ? name
+      : alert('please make sure u typed ur fullName');
+  }
+  get fullName() {
+    return this._fullName;
+  }
+
+  static hey() {
+    console.log('hey how is going 👋');
+  }
+}
+
+const lili = new PersonCl('LiLi Marquinies', 2002);
+lili.calcAge();
+
+class Student extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    super(fullName, birthYear);
+    this.course = course;
+  }
+  calcAge() {
+    console.log(
+      `I am ${this.fullName} and am ${
+        2021 - this.birthYear
+      } years old student in LA `
+    );
+  }
+}
+
+const mike = new Student('Mike Tulip', 2003, 'CS');
+const zuhra = new Student('Zuhra Sweety', 2005, 'psychology');
